@@ -17,8 +17,11 @@ jobs:
         with:
           bun-version: "1.3.6"
 
-      - name: Install dependencies
-        run: bun install --frozen
+      - name: Install dependencies (ohne Lifecycle-Scripts; .sh laeuft auf Windows nicht)
+        run: bun install --frozen --ignore-scripts
+
+      - name: Native Module fuer Desktop (electron-builder install-app-deps)
+        run: bun run --filter=@ade/desktop install:deps
 
       - name: Clean dev folder
         working-directory: apps/desktop
